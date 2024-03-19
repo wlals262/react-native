@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -13,6 +13,7 @@ import {
 // 컴포넌트는 첫문자 무조건 대문자 고정
 import LeftBubble from '../components/LeftBubble';
 import RightBubble from '../components/RightBubble';
+import Toast from '../components/Toast';
 
 const leftArrow = require('../assets/icons/leftArrow.png');
 const rightBubbleTriangle = require('../assets/icons/rightBubbleTriangle.png');
@@ -122,6 +123,8 @@ const dummy_data = [
 ];
 
 const ChatScreen = () => {
+  const [toastVisible, setToastVisible] = useState(false);
+
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <View style={styles.mainContainer}>
@@ -144,6 +147,7 @@ const ChatScreen = () => {
               )
             }
             keyExtractor={item => item.id}
+            // eslint-disable-next-line react/no-unstable-nested-components
             ListHeaderComponent={() => (
               <View style={styles.chatDayWrapper}>
                 <Text style={styles.chatDay}>2024년 3월 15일</Text>
@@ -155,6 +159,7 @@ const ChatScreen = () => {
       </View>
       <View style={{padding: 16, flexDirection: 'row'}}>
         <TouchableOpacity
+          onPress={() => setToastVisible(!toastVisible)}
           style={{
             borderWidth: 1,
             borderColor: '#EFEFEF',
@@ -179,6 +184,11 @@ const ChatScreen = () => {
           }}
         />
       </View>
+      <Toast
+        content={'아직 구현되지 않은 기능입니다.'}
+        visible={toastVisible}
+        handleCancel={() => setToastVisible(false)}
+      />
     </SafeAreaView>
   );
 };

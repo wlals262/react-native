@@ -8,6 +8,7 @@ module.exports = {
       'error',
       {
         endOfLine: 'auto',
+        // tabWidth: 4,
       },
     ],
     'no-console': 'warn',
