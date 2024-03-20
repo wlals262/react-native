@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useRef} from 'react';
 import {
   Animated,
@@ -8,7 +9,9 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-const AnimatedExample = () => {
+const AnimatedExample = ({navigation}) => {
+  // const navigation = useNavigation();
+
   // fadeAnim will be used as the value for opacity. Initial Value: 0
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const moveAnim = useRef(new Animated.Value(0)).current;
@@ -48,6 +51,12 @@ const AnimatedExample = () => {
     }).start();
   };
 
+  const moveToDetail = () => {
+    navigation.navigate('Detail', {
+      test: '데이터 전송',
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View
@@ -66,6 +75,7 @@ const AnimatedExample = () => {
         <Button title="Move to Left" onPress={moveToLeft} />
         <Button title="Fade In View" onPress={fadeIn} />
         <Button title="Fade Out View" onPress={fadeOut} />
+        <Button title="Move to Detail" onPress={moveToDetail} />
       </View>
     </SafeAreaView>
   );
