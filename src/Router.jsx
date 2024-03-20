@@ -7,6 +7,12 @@ import AnimatedExample from './Pages/AnimatedExample';
 import Detail from './Pages/Detail';
 import BasicCalendar from './Pages/BasicCalendar';
 import BasicCarousel from './Pages/BasicCarousel';
+import Home from './Pages/Home';
+import Settings from './Pages/Settings';
+import Notice from './Pages/Notice';
+import NoticeDetail from './Pages/NoticeDetail';
+import CustomCameraRoll from './components/CustomCameraRoll';
+import VideoPlayer from './Pages/VideoPlayer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,10 +23,10 @@ const MainTab = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Animation" component={AnimatedExample} />
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="BasicCalendar" component={BasicCalendar} />
-      <Tab.Screen name="BasicCarousel" component={BasicCarousel} />
+      <Tab.Screen name="VideoPlayer" component={VideoPlayer} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 };
@@ -35,6 +41,10 @@ const Router = () => {
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen name="Notice" component={Notice} />
+      <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
+      <Stack.Screen name="CustomCameraRoll" component={CustomCameraRoll} />
+      <Stack.Screen name="VideoPlayer" component={VideoPlayer} />
     </Stack.Navigator>
   );
 };
