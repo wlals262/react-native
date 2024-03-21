@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -7,6 +7,10 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
+import fonts from '../styles/fonts';
+import {API} from '../apis';
+import {getAppVersion} from '../apis/basic';
+import {getMyFriendList, getMyInfo} from '../apis/user';
 
 const searchIcon = require('../assets/icons/search.png');
 const addIcon = require('../assets/icons/add.png');
@@ -91,6 +95,33 @@ const dummy_data = [
 ];
 
 const Home = ({navigation}) => {
+  const [myInfo, setMyInfo] = useState([]);
+  const [friendList, setFriendList] = useState([]);
+  const [friendNumber, setFriendNumber] = useState();
+
+  //api는 따로 빼는 것이 좋음
+  useEffect(() => {
+    getAppVersion();
+    async function getMyInfoApi() {
+      const res = await getMyInfo();
+      setMyInfo(res.data);
+      console.log(res);
+    }
+    getMyInfoApi();
+  });
+
+  // myInfo에 연결된 친구 목록
+  // useEffect(() => {
+  //   getMyFriendApi(myInfo.userId);
+  // }, [myInfo?.userId]);
+
+  const getMyFriendApi = async () => {
+    const res = await getMyFriendList(myInfo?.userId);
+    console.log({res});
+    setFriendList(res.data.lists);
+    setFriendNumber(res.data.number);
+  };
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -159,14 +190,25 @@ const Home = ({navigation}) => {
             marginHorizontal: 16,
           }}>
           <View style={{gap: 2}}>
-            <Text style={{fontWeight: 'bold', fontSize: 18, color: '#333'}}>
-              김이동
+            <Text
+              style={{
+                fontSize: 18,
+                color: '#333',
+                fontFamily: fonts.PRETENDARD[600],
+              }}>
+              {/* {myInfo?.name} */}
+              정지민
             </Text>
             <Text style={{fontWeight: '500', fontSize: 14, color: '#828282'}}>
-              D-day 30
+              {/* {myInfo?.introduce} */}
+              D-30
             </Text>
           </View>
-          <Image source={myProfile} style={{width: 56, height: 56}} />
+          <Image
+            // source={{uri: myInfo?.profileImg}}
+            source={myProfile}
+            style={{width: 56, height: 56}}
+          />
         </View>
         <View
           style={{
